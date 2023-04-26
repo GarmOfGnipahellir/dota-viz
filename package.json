@@ -1,0 +1,19 @@
+{
+  "name": "dota-viz",
+  "version": "1.0.0",
+  "description": "",
+  "source": "index.html",
+  "scripts": {
+    "start": "parcel",
+    "build": "parcel build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "pts": "^0.11.3"
+  },
+  "devDependencies": {
+    "parcel": "^2.8.3"
+  }
+}
