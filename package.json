@@ -10,7 +10,17 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "alias": {
+    "react": "preact/compat",
+    "react-dom/test-utils": "preact/test-utils",
+    "react-dom": "preact/compat",
+    "react/jsx-runtime": "preact/jsx-runtime",
+    "preact/jsx-dev-runtime": "preact/jsx-runtime"
+  },
   "dependencies": {
+    "@carbon/web-components": "^1.28.0",
+    "preact": "^10.15.0",
+    "prop-types": "^15.8.1",
     "pts": "^0.11.3"
   },
   "devDependencies": {
