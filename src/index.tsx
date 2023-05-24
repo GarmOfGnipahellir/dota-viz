@@ -1,44 +1,44 @@
-import { render } from "preact";
-import BXHeader from "@carbon/web-components/es/components-react/ui-shell/header";
-import BXHeaderName from "@carbon/web-components/es/components-react/ui-shell/header-name";
-import BXHeaderMenuButton from "@carbon/web-components/es/components-react/ui-shell/header-menu-button";
-import BXHeaderNav from "@carbon/web-components/es/components-react/ui-shell/header-nav";
-import BXHeaderNavItem from "@carbon/web-components/es/components-react/ui-shell/header-nav-item";
-import BXHeaderMenu from "@carbon/web-components/es/components-react/ui-shell/header-menu";
-import BXHeaderMenuItem from "@carbon/web-components/es/components-react/ui-shell/header-menu-item";
-import BXButton from "@carbon/web-components/es/components-react/button/button";
+import "./index.scss";
 
-import "./index.css";
+import {
+  Attributes,
+  Component,
+  ComponentChild,
+  ComponentChildren,
+  Ref,
+  render,
+} from "preact";
+
+function damageFactor(armor: number): number {
+  return 1 - (0.06 * armor) / (1 + 0.06 * Math.abs(armor));
+}
+
+class Graph extends Component {
+  constructor() {
+    super()
+  }
+
+  componentDidMount(): void {
+    
+  }
+
+  render(
+    props?: Readonly<
+      Attributes & { children?: ComponentChildren; ref?: Ref<any> }
+    >,
+    state?: Readonly<{}>,
+    context?: any
+  ): ComponentChild {
+    return <canvas />;
+  }
+}
 
 let App = (
-  <div>
-    <BXHeader>
-      <BXHeaderMenuButton
-        buttonLabelActive="Close menu"
-        buttonLabelInactive="Open menu"
-      />
-      <BXHeaderName href="javascript:void 0" prefix="Dota">
-        [Viz]
-      </BXHeaderName>
-      <BXHeaderNav>
-        <BXHeaderNavItem href="javascript:void 0">Link 1</BXHeaderNavItem>
-        <BXHeaderNavItem href="javascript:void 0">Link 2</BXHeaderNavItem>
-        <BXHeaderNavItem href="javascript:void 0">Link 3</BXHeaderNavItem>
-        <BXHeaderMenu menuLabel="Link 4" triggerContent="Link 4">
-          <BXHeaderMenuItem href="javascript:void 0">
-            Sub-link 1
-          </BXHeaderMenuItem>
-          <BXHeaderMenuItem href="javascript:void 0">
-            Sub-link 2
-          </BXHeaderMenuItem>
-          <BXHeaderMenuItem href="javascript:void 0">
-            Sub-link 3
-          </BXHeaderMenuItem>
-        </BXHeaderMenu>
-      </BXHeaderNav>
-    </BXHeader>
-    <BXButton>Button</BXButton>
-  </div>
+  <>
+    <div style={{ width: 1000, height: 600, margin: "auto" }}>
+      <Graph />
+    </div>
+  </>
 );
 
 render(App, document.getElementById("app"));
