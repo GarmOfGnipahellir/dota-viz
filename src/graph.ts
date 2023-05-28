@@ -4,6 +4,8 @@ export class GraphRenderer {
   space: CanvasSpace;
   form: CanvasForm;
 
+  view: GraphView;
+
   constructor(elem: string | Element) {
     this.space = new CanvasSpace(elem);
     this.space.setup({ bgcolor: "#111" });
@@ -17,8 +19,6 @@ export class GraphRenderer {
 
   animate() {
     let [space, form] = [this.space, this.form];
-
-    form.fillOnly("#ff0000").point(space.center, 100, "circle");
 
     let resolution = 100;
     let step = 1 / resolution;
@@ -41,4 +41,26 @@ export class GraphRenderer {
   }
 
   action(type: string, px: number, py: number, evt: Event) {}
+}
+
+export class GraphView {
+  viewX: number;
+  viewY: number;
+
+  viewWidth: number;
+  viewHeight: number;
+
+  graphWidth: number;
+  graphHeight: number;
+
+  offsetX: number;
+  offsetY: number;
+
+  viewToGraph(pt: Pt): Pt {
+    return pt
+      .$subtract(new Pt(this.viewX, this.viewY))
+      .$divide(new Pt(this.viewWidth, this.viewHeight))
+      .$multiply(new Pt(this.graphWidth, this.graphHeight))
+      .$add(new Pt(this.offsetX, this.offsetY));
+  }
 }
