@@ -9,6 +9,8 @@ export class GraphRenderer {
   margins: Margins;
   resolution: number = 100;
 
+  minTickStep: number = 50;
+
   constructor(elem: string | Element, margins?: Margins) {
     this.margins = margins ?? new Margins(50);
 
@@ -49,9 +51,45 @@ export class GraphRenderer {
 
     form.strokeOnly("#fff").lines(lines);
 
-    form.rect(Rectangle.fromTopLeft(this.view.viewPos, this.view.viewSize));
+    form
+      .strokeOnly("#fff")
+      .rect(Rectangle.fromTopLeft(this.view.viewPos, this.view.viewSize));
 
-    let tickStepX = this.view.graphSize
+    let numTicksX = Math.floor(this.view.viewSize.x / this.minTickStep);
+    let tickStepX = this.view.viewSize.x / (numTicksX - 1);
+    for (let i = 0; i < numTicksX; i++) {
+      let x = i * tickStepX + this.view.viewPos.x;
+      let minY = this.view.viewSize.y + this.view.viewPos.y;
+      let maxY = minY + 20;
+
+      // tick line
+      form.strokeOnly("#fff").line([new Pt(x, minY), new Pt(x, maxY)]);
+      // grid line
+      form
+        .strokeOnly("#222")
+        .line([
+          new Pt(x, this.view.viewPos.y),
+          new Pt(x, this.view.viewPos.y + this.view.viewSize.y),
+        ]);
+    }
+
+    let numTicksY = Math.floor(this.view.viewSize.y / this.minTickStep);
+    let tickStepY = this.view.viewSize.y / (numTicksY - 1);
+    for (let i = 0; i < numTicksY; i++) {
+      let y = i * tickStepY + this.view.viewPos.y;
+      let maxX = this.view.viewPos.x;
+      let minX = maxX - 20;
+
+      // tick line
+      form.strokeOnly("#fff").line([new Pt(minX, y), new Pt(maxX, y)]);
+      // grid line
+      form
+        .strokeOnly("#222")
+        .line([
+          new Pt(this.view.viewPos.x, y),
+          new Pt(this.view.viewPos.x + this.view.viewSize.x, y),
+        ]);
+    }
   }
 
   action(type: string, px: number, py: number, evt: Event) {}
